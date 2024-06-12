@@ -4,8 +4,7 @@ import ctypes
 import time
 import os
 import argparse
-import showPic  #showPic.py is a file that I created to show the image in Terminal
-from PIL import Image                                                                                
+import showPic  #showPic.py is a file that I created to show the image in Terminal                                                                             
 
 filename = "pic.jpg"
 path = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
