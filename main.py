@@ -4,20 +4,20 @@ import ctypes
 import time
 import os
 import argparse
+#import showPic  #showPic.py is a file that I created to show the image in Terminal
+from PIL import Image                                                                                
 
 filename = "pic.jpg"
 path = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
-url = "https://pixabay.com/api/?key=44350029-157b87ae5b114d717fab1bab3&image_type=photo"
+urlString = "https://picsum.photos"
 
 
 def get_screen_resolution():
     user32 = ctypes.windll.user32
     return user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
 
-def get_url_string(url, width, height):
-    return f"{url}&min_width={width}&min_height={height}"
-
-
+def get_url(urlString, width, height):
+    return f"{urlString}/{width}/{height}.jpg?random=1"
 
 def download_file(url, filename):
     response = requests.get(url, stream=True)
@@ -41,5 +41,10 @@ def main():
 
 width, height = get_screen_resolution()
 print(width, height)
-urlString = get_url_string(url, width, height)
-print(urlString)
+url = get_url(urlString, width, height)
+print(url)
+download_file(url, path)
+print(path)
+time.sleep(1)
+#showPic.main(path, 100)
+set_background(path)
