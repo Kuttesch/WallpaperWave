@@ -14,10 +14,7 @@ def get_arg():
     parser = argparse.ArgumentParser()
     parser.add_argument('-a', '--auto', action='store_true', help='Automatically set as desktop background')
     args = parser.parse_args()
-    if args.auto:
-        get_user_acceptance()
-    else:
-        set_background(path)
+    return args
 
 def get_screen_resolution():
     user32 = ctypes.windll.user32
@@ -58,7 +55,7 @@ def exit():
         
 
 def main():
-    get_arg()
+    args = get_arg()
     width, height = get_screen_resolution()
     print(width, height)
     url = get_url(urlString, width, height)
@@ -66,7 +63,10 @@ def main():
     download_file(url, path)
     print(path)
     time.sleep(1)
-    get_user_acceptance()
+    if args.auto:
+        set_background(path)
+    else:
+        get_user_acceptance()
 
 if __name__ == '__main__':
     main()
